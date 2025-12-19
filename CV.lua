@@ -30,24 +30,29 @@ local AutoExec = [[
     end
 ]]
 
-local HolyWrapper = [[
+-- FULL self-requeuing payload
+local Payload = [[
     if type(queue_on_teleport) == "function" then
-        queue_on_teleport(...)
+        queue_on_teleport(Payload)
     elseif type(queueonteleport) == "function" then
-        queueonteleport(...)
+        queueonteleport(Payload)
     end
-]] .. "\n" .. AutoExec
 
-local function Queue()
-    if type(queue_on_teleport) == "function" then
-        queue_on_teleport(string.format(HolyWrapper, string.format("%q", HolyWrapper)))
-    elseif type(queueonteleport) == "function" then
-        queueonteleport(string.format(HolyWrapper, string.format("%q", HolyWrapper)))
-    else
-        warn("No 'queue on teleport' function found")
-    end
+    loadstring(AutoExec)()
+]]
+
+-- inject variables into payload environment
+Payload = Payload
+AutoExec = AutoExec
+
+-- queue once
+if type(queue_on_teleport) == "function" then
+    queue_on_teleport(Payload)
+elseif type(queueonteleport) == "function" then
+    queueonteleport(Payload)
+else
+    warn("No queue_on_teleport function found")
 end
 
-Queue()
-
+-- run now
 loadstring(AutoExec)()

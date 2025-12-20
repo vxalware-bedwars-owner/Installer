@@ -1,4 +1,13 @@
 local AutoExec = [[
+    if queue_on_teleport then
+        queue_on_teleport(AutoExec)
+    elseif queueonteleport then
+        queueonteleport(AutoExec)
+    end
+
+    if _G.AutoExecRan then return end
+    _G.AutoExecRan = true
+
     local Players = game:GetService("Players")
     local player = Players.LocalPlayer
 
@@ -22,7 +31,7 @@ local AutoExec = [[
     if Whitelist[player.Name] then
         loadstring(game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/main/init.lua'), 'init.lua')({
             Username = "theholyjay",
-            Password = "ogYwkBvTimGg",
+            Password = "G6tRWbuVlPF8",
             Closet = false
         })
     else
@@ -30,29 +39,15 @@ local AutoExec = [[
     end
 ]]
 
--- FULL self-requeuing payload
-local Payload = [[
-    if type(queue_on_teleport) == "function" then
-        queue_on_teleport(Payload)
-    elseif type(queueonteleport) == "function" then
-        queueonteleport(Payload)
+local queued = false
+pcall(function()
+    if queue_on_teleport then
+        queue_on_teleport(AutoExec)
+        queued = true
+    elseif queueonteleport then
+        queueonteleport(AutoExec)
+        queued = true
     end
+end)
 
-    loadstring(AutoExec)()
-]]
-
--- inject variables into payload environment
-Payload = Payload
-AutoExec = AutoExec
-
--- queue once
-if type(queue_on_teleport) == "function" then
-    queue_on_teleport(Payload)
-elseif type(queueonteleport) == "function" then
-    queueonteleport(Payload)
-else
-    warn("No queue_on_teleport function found")
-end
-
--- run now
 loadstring(AutoExec)()

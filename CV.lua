@@ -1,7 +1,7 @@
 --> Load Instances <--
 local Properties = Instance.new("TextChatMessageProperties")
 local TextChatService = game:GetService("TextChatService")
-local RunService = game.GetService("RunService")
+local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 

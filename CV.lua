@@ -75,13 +75,13 @@ local function OverrideHandler(message)
 
     local Properties = Instance.new("TextChatMessageProperties")
     if Owner[player.Name] then
-        Properties.PrefixText = "<font color='#eb4034'>[Owner]</font>"
+        Properties.PrefixText = "<font color='#eb4034'>[Owner] </font>"
     elseif Premium[player.Name] then
-        Properties.PrefixText = "<font color='#a834eb'>[Premium]</font>"
+        Properties.PrefixText = "<font color='#a834eb'>[Premium] </font>"
     elseif BetaTester[player.Name] then
-        Properties.PrefixText = "<font color='#ed7409'>[Beta Tester]</font>"
+        Properties.PrefixText = "<font color='#ed7409'>[Beta Tester] </font>"
     else
-        Properties.PrefixText = "<font color='#0970ed'>[Vxalware]</font>"
+        Properties.PrefixText = "<font color='#0970ed'>[Vxalware] </font>"
     end
     Properties.PrefixText ..=(message.PrefixText or "")
     return Properties
